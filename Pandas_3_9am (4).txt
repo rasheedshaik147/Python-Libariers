@@ -1,0 +1,240 @@
+Addition of rows:
+We can easily add new rows to the DataFrame using append function. It adds the new rows at the end.
+
+Example:
+import pandas as pd  
+df1 = pd.DataFrame([[7, 8], [9, 10]], columns = ['x','y'])  
+df2 = pd.DataFrame([[11, 12], [13, 14]], columns = ['x','y'])  
+dfres = df1.append(df2)  
+print (dfres)  
+
+Deletion of rows:
+We can delete or drop any rows from a DataFrame using the index label. If in case, the label is duplicate then multiple rows will be deleted.
+
+Example:
+import pandas as pd  
+df1=pd.DataFrame([[4, 5], [6, 7]], columns = ['x','y'])  
+df2=pd.DataFrame([[8, 9], [10, 11]], columns = ['x','y'])  
+dfapp=df1.append(df2)  
+print(dfapp)
+dfapp = df1.drop(0)  
+print(dfapp)
+dfapp = df2.drop(1)
+print(dfapp)
+
+3. Rename columns
+Example:
+import pandas as pd
+df = pd.DataFrame({'Col_One':[100, 200],'Col_Two':[300, 400]})
+df = df.rename({'Col_One':'Col1', 'Col_Two':'Col2'}, axis='columns')
+print(df)
+
+Pandas DataFrame.isin()
+This method is to select the rows having a particular (or multiple) values in a particular column.
+
+Syntax
+DataFrame.isin(values)  
+
+Example:
+import pandas as pd  
+PyInfo = pd.DataFrame({'x': [1, 2], 'y': [3, 7]})  
+PyData = PyInfo.isin(range(1,3))  
+print(PyData)
+PyData = PyInfo.isin(range(0,6))  
+print(PyData)    
+PyData = PyInfo.isin(range(0,8))  
+print(PyData)
+
+Example:
+import pandas as pd
+PyData = pd.read_csv("employees.csv")
+PyRes = PyData["candidateName"].isin(["Srinivas"])
+print(PyData[PyRes])
+PyRes1 = PyData["candidateName"].isin(["Sruthi"])
+print(PyData[PyRes1])
+
+Example:
+import pandas as pd
+PyData = pd.read_csv("employees.csv")
+PyRes = PyData["candidateName"].isin(["Srinivas"])
+print(PyData[PyRes])
+PyRes1 = PyData["companyName"].isin(["System Administrator", "Team Lead"])
+print(PyData[PyRes1])
+
+Pandas DataFrame.replace()
+It is a very rich function that is used to replace a string, regex, dictionary, list, and series from the DataFrame.
+
+Syntax:
+DataFrame.replace(to_replace=None, value=None) 
+
+Example:
+import pandas as pd  
+info = pd.DataFrame({  
+    'name':['Parker','Smith','John'],  
+    'age':[27,34,29],  
+    'city':['US','Belgium','London']  
+})  
+print(info.replace(29,38))
+print(info.replace('Parker',"Raju"))
+print(info.replace('London',"HYDERABAD"))
+
+Example:
+import pandas as pd  
+PyInfo = pd.DataFrame({  
+    'name':['Parker','Smith','John'],  
+    'age':[27,34,31],  
+    'city':['US','Belgium','London']  
+})  
+
+NewInfo=PyInfo.replace({  
+    34:39,  
+    'Smith':'SCOTT'  
+})  
+print(NewInfo)
+
+Panel
+It is a 3D container of data. It is Deprecated since version 0.20.0. To represent 3-D data are with a MultiIndex on a DataFrame via the to_frame() method or with the xarray package
+
+Syntax:
+pandas.Panel(data, items, major_axis, minor_axis, dtype, copy)
+
+items => axis 0, each item corresponds to a DataFrame contained inside.
+major_axis => axis 1, it is the index (rows) of each of the DataFrames.
+minor_axis => axis 2, it is the columns of each of the DataFrames.
+dtype =>	Data type of each column
+copy =>	Copy data. Default, false
+
+Example:
+# creating an empty panel
+import pandas as pd
+import numpy as np
+PyData = np.random.rand(2,4,5)
+Panel_Pd = pd.Panel(PyData)
+print (Panel_Pd)
+
+Pandas Read CSV
+A simple way to store big data sets is to use CSV files (comma separated files).
+CSV files contains plain text and is a well know format that can be read by everyone including Pandas.
+
+Example:
+import pandas as pd
+df=pd.read_csv('Data.csv')
+print(df.to_string()) 
+
+NOTE:
+1 use to_string() to print the entire DataFrame.
+2 By default, when you print a DataFrame, you will only get the first 5 rows, and the last 5 rows:
+
+Example:
+import pandas as pd
+df=pd.read_csv('Data.csv')
+print(df) 
+
+Example:To display all data types 
+import pandas as pd
+df=pd.read_csv('Data.csv')
+print(df.dtypes)
+
+Example:
+import pandas as pd
+df=pd.read_csv('Data.csv')
+#it displays first 5 rows & last 5 rows
+print(df)
+print(df.to_string())
+#to_string() method displays all rows & cols from a dataset
+print(df.head(4))
+print(df.tail(4))
+print(df.info())
+print(df.describe())
+print(df.dtypes)
+
+Example:
+import pandas as pd
+df=pd.read_csv('Data.csv')
+df.to_excel("PyFile.xls", sheet_name="PyData", index=False)
+print("DataConvertedSuccessfully..!!")
+
+Example:
+import pandas as pd
+df=pd.read_csv('Data.csv')
+df = pd.read_excel("PyFile.xls", sheet_name="PyData")
+print(df.head())
+print("DataReadSuccessfully..!!")
+
+Pandas Read JSON
+Big data sets are often stored, or extracted as JSON. JSON is plain text, but has the format of an object, and is well known in the world of programming, including Pandas.
+
+Example:
+import pandas as pd
+df = pd.read_json('data.json')
+print(df.to_string()) 
+
+NOTE: use to_string() to print the entire DataFrame.
+
+Example:
+import pandas as pd
+df = pd.read_json('data.json')
+print(df) 
+
+Dictionary as JSON
+JSON = Python Dictionary
+JSON objects have the same format as Python dictionaries. If your JSON code is not in a file, but in a Python Dictionary, you can load it into a DataFrame directly.
+
+Example:
+import pandas as pd
+data = {
+  "Duration":{
+    "0":60,
+    "1":60,
+    "2":60,
+    "3":45,
+    "4":45,
+    "5":60
+  },
+  "Pulse":{
+    "0":110,
+    "1":117,
+    "2":103,
+    "3":109,
+    "4":117,
+    "5":102
+  },
+  "Maxpulse":{
+    "0":130,
+    "1":145,
+    "2":135,
+    "3":175,
+    "4":148,
+    "5":127
+  },
+  "Calories":{
+    "0":409.1,
+    "1":479.0,
+    "2":340.0,
+    "3":282.4,
+    "4":406.0,
+    "5":300.5
+  }
+}
+df = pd.DataFrame(data)
+print(df) 
+
+pandas.read_excel
+Excel is the most powerful tool to manage and analyze various types of Data. It is a spreadsheet program used to record and analyze numerical and statistical data. It provides multiple features to perform various operations like calculations, pivot tables, graph tools, macro programming, etc. It is compatible with multiple OS like Windows, macOS, Android and iOS.
+
+Example:
+import pandas as pd
+df=pd.read_excel('data.xls')
+print(df)
+print(df.to_string())
+
+Example:
+import pandas as pd
+DFrame=pd.read_excel('data.xls')
+print(DFrame)
+print(DFrame.to_string())
+print(DFrame.head())
+print(DFrame.head(10))
+print(DFrame.tail())
+print(DFrame.tail(10))
+print(DFrame.info())
